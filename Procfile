@@ -1,0 +1,1 @@
+web: practicas.wsgi
