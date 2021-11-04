@@ -29,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '0.0.0.0'
     'django-practicas.herokuapp.com',
+    'https://django-practicas.herokuapp.com',
+    'http://django-practicas.herokuapp.com',
     '127.0.0.1'
 ]
 
