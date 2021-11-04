@@ -21,4 +21,7 @@ from learning import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login),
+   
 ]
+
+"""  path('home', views.home, name="home"), luego en el form utilizar  action="{% url 'home' %}"  """
