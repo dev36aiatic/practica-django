@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-def login(request):
-    return render(request, 'login.html', { 'valor' : 'Hola soy una variable'}) 
+def home(request):
+    return render(request, 'home.html', { 'valor' : 'Hola soy una variable'}) 
