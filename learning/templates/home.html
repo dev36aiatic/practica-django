@@ -1,0 +1,16 @@
+{% load account %}
+
+{% if user.is_authenticated %}
+
+<h1>Bienvenido {% user_display user %}</h1>
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, nisi ad illo laborum, iusto voluptatibus maxime
+    amet placeat, minus a soluta sapiente explicabo enim! Delectus sint doloribus iure cupiditate similique.</p>
+
+<li><a href="{% url 'account_email' %}">Cambiar correo electrónico</a></li>
+<li><a href="{% url 'account_logout' %}">Cerrar sesión</a></li>
+{% else %}
+<p>Parece que no has iniciado sesión campeon, por favor inicia sesión o registrate.</p>
+<li><a href="{% url 'account_login' %}">Iniciar Sesión</a></li>
+<li><a href="{% url 'account_signup' %}">Registrarse</a></li>
+{% endif %}

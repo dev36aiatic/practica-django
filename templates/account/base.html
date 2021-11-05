@@ -17,7 +17,7 @@
 <body>
   {% block body %}
 
-  {% if messages %}
+<!--   {% if messages %}
   <div>
     <strong>Messages:</strong>
     <ul>
@@ -26,8 +26,8 @@
       {% endfor %}
     </ul>
   </div>
-  {% endif %}
-
+  {% endif %} -->
+<!-- 
   <div>
     <strong>Menu:</strong>
     <ul>
@@ -35,11 +35,11 @@
       <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}
-      <li><a href="{% url 'account_login' %}">Sign In</a></li>
-      <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+      <li><a href="{% url 'account_login' %}">Iniciar Sesión</a></li>
+      <li><a href="{% url 'account_signup' %}">Registrarse</a></li>
       {% endif %}
     </ul>
-  </div>
+  </div> -->
   {% block content %}
   {% endblock %}
   {% endblock %}

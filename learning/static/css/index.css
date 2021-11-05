@@ -64,7 +64,7 @@ body {
 }
 
 .social-networks {
-    display: inline-block;
+    display: inline-block !important;
     background: #0c0c0c;
     border-radius: 100%;
     width: 40px;
@@ -73,7 +73,6 @@ body {
     max-height: 40px;
     text-align: center;
     line-height: 42px;
-    margin-right: 3px;
 }
 
 .social-networks i {
@@ -85,6 +84,11 @@ body {
     transition: all ease .2s;
 }
 
+.github {
+    background: #000;
+    transition: all ease .2s;
+}
+
 .google {
     background: #ea4335;
     transition: all ease .2s;
@@ -92,10 +96,18 @@ body {
 
 .facebook:hover {
     background: #1876f2dc;
+    transform: scale(1.1);
 }
 
 .google:hover {
     background: #ea4435de;
+    transform: scale(1.1);
+}
+
+.github:hover{
+    background: rgba(0, 0, 0, 0.664);
+    transform: scale(1.1);
+    transition: all ease .2s;
 }
 
 @media screen and (max-width: 768px) {

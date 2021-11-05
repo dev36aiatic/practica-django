@@ -17,13 +17,19 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from learning import views
+from allauth.account import views as allauth_views
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path('accounts/', include('allauth.urls')),
-    path('', views.login),
-   
+    path('accounts/', include('allauth.urls')),
+    path('', allauth_views.login, name="account_login"),
+    path('accounts/profile/', views.home),
 ]
+""" <a href="{% url 'account_login' %}">Login</a> """
 
 """  path('home', views.home, name="home"), luego en el form utilizar  action="{% url 'home' %}"  """
+"""  url(r"^signup/$", allauth_views.signup, name="account_signup"),
+    url(r"^login/$", allauth_views.login, name="account_login"),
+    url(r"^logout/$", allauth_views.logout, name="account_logout"), """
