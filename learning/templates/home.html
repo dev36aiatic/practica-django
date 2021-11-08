@@ -1,16 +1,40 @@
+{% extends 'layouts/first.html'%}
+
+{% block content %}
 {% load account %}
 
 {% if user.is_authenticated %}
+<div class="container bg-white py-5 h-100">
+    <div class="row mb-3">
+        <div class="col-12 text-center text-dark">
+            <h2>Bienvenido
+                {% if user.socialaccount_set.all.0.extra_data.name %}
+                {{ user.socialaccount_set.all.0.extra_data.name  }}
+                {% else %}
+                {% user_display user %}
+                {% endif %}
+            </h2>
+            <img style="border-radius: 100%;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
+            <img style="border-radius: 100%;" class="my-3" src="{{ user.get_avatar_url }}" />
+        </div>
+    </div>
 
-<h1>Bienvenido {% user_display user %}</h1>
+    <div class="alert alert-success text-center">
+        <strong>¡Felicidades!</strong>
+        has iniciado sesión correctamente en el sitio de Practica Django realizado en las practicas univeristarias
+        2021-2 en la empresa A&A Soluciones TIC
+    </div>
 
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, nisi ad illo laborum, iusto voluptatibus maxime
-    amet placeat, minus a soluta sapiente explicabo enim! Delectus sint doloribus iure cupiditate similique.</p>
-
-<li><a href="{% url 'account_email' %}">Cambiar correo electrónico</a></li>
-<li><a href="{% url 'account_logout' %}">Cerrar sesión</a></li>
+    <a class="btn btn-secondary float-end " href="{% url 'account_logout' %}">Cerrar sesión</a>
+    <a class="btn btn-primary float-end mx-3" href="{% url 'account_email' %}">Cambiar correo electrónico</a>
+    <a class="btn btn-warning float-end" href="{% url 'socialaccount_connections' %}">Vincular cuenta con redes sociales</a>
 {% else %}
-<p>Parece que no has iniciado sesión campeon, por favor inicia sesión o registrate.</p>
-<li><a href="{% url 'account_login' %}">Iniciar Sesión</a></li>
-<li><a href="{% url 'account_signup' %}">Registrarse</a></li>
+    <p>Parece que no has iniciado sesión campeon, por favor inicia sesión o registrate.</p>
+    <li><a href="{% url 'account_login' %}">Iniciar Sesión</a></li>
+    <li><a href="{% url 'account_signup' %}">Registrarse</a></li>
 {% endif %}
+
+</div>
+
+
+{% endblock %}
