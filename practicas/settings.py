@@ -77,6 +77,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email', 'public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'LOCALE_FUNC': lambda request: 'es_CO',
+    },
+     'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
     }
 }
 
