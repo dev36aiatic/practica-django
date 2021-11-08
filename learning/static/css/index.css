@@ -110,6 +110,10 @@ body {
     transition: all ease .2s;
 }
 
+.signup input {
+    margin-bottom: 10px !important;
+}
+
 @media screen and (max-width: 768px) {
     .btn-entrar {
         width: 100%;
