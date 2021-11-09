@@ -5,7 +5,8 @@
 
 {% if user.is_authenticated %}
 <div class="container bg-white py-5 h-100 d-flex flex-column justify-content-center align-items-center">
-    <div class="row mb-3">
+
+    <div class="row">
         <div class="col-12 text-center text-dark ">
             <h2 class="pt-5">Bienvenido
                 {% if user.socialaccount_set.all.0.extra_data.name %}
@@ -17,12 +18,13 @@
             <img style="border-radius: 100%;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
             <img style="border-radius: 100%;" class="my-3" src="{{ user.get_avatar_url }}" />
         </div>
-    </div>
-
-    <div class="alert alert-success text-center">
-        <strong>¡Felicidades!</strong>
-        has iniciado sesión correctamente en el sitio de Practica Django realizado en las practicas univeristarias
-        2021-2 en la empresa A&A Soluciones TIC
+        <div class="col-12">
+            <div class="alert alert-success text-center">
+                <strong>¡Felicidades!</strong>
+                has iniciado sesión correctamente en el sitio de Practica Django realizado en las practicas univeristarias
+                2021-2 en la empresa A&A Soluciones TIC
+            </div>
+        </div>
     </div>
 
     <div class="row w-100">
