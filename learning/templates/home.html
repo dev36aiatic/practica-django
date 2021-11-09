@@ -4,10 +4,10 @@
 {% load account %}
 
 {% if user.is_authenticated %}
-<div class="container bg-white py-5 h-100">
+<div class="container bg-white py-5 h-100 d-flex flex-column justify-content-center align-items-center">
     <div class="row mb-3">
-        <div class="col-12 text-center text-dark">
-            <h2>Bienvenido
+        <div class="col-12 text-center text-dark ">
+            <h2 class="pt-5">Bienvenido
                 {% if user.socialaccount_set.all.0.extra_data.name %}
                 {{ user.socialaccount_set.all.0.extra_data.name  }}
                 {% else %}
@@ -25,9 +25,13 @@
         2021-2 en la empresa A&A Soluciones TIC
     </div>
 
-    <a class="btn btn-secondary float-end " href="{% url 'account_logout' %}">Cerrar sesión</a>
-    <a class="btn btn-primary float-end mx-3" href="{% url 'account_email' %}">Cambiar correo electrónico</a>
-    <a class="btn btn-warning float-end" href="{% url 'socialaccount_connections' %}">Vincular cuenta con redes sociales</a>
+    <div class="row w-100">
+        <div class="col d-flex flex-wrap justify-content-center">
+            <a class="btn col-12  col-sm-12 mb-3 mb-sm-3 mb-lg-0 mx-md-3 col-lg-auto btn-primary" href="{% url 'account_email' %}">Cambiar correo electrónico</a>
+            <a class="btn col-12  col-sm-12 mb-3 mb-sm-3 mb-lg-0 mx-md-3 col-lg-auto btn-warning" href="{% url 'socialaccount_connections' %}">Vincular cuenta con redes sociales</a>
+            <a class="btn col-12  col-sm-12 mb-3 mb-sm-3 mb-lg-0 mx-md-3 col-lg-auto btn-secondary" href="{% url 'account_logout' %}">Cerrar sesión</a>
+        </div>
+    </div>
 {% else %}
     <div class="container bg-white text-center h-100 py-5">
         <div class="row h-100 align-items-center">

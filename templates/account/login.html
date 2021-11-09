@@ -8,13 +8,13 @@
 {% block content %}
 
 <div class="container bg-white h-100">
-  <div class="row bg-white h-100">
+  <div class="row d-flex bg-white h-100 justify-content-center flex-wrap align-items-center ">
 
-    <div class="col-12  align-self-center col-sm-12 col-md-6 text-center">
-      <img class="img-fluid bg-white" src="https://i.imgur.com/uNGdWHi.png">
+    <div class="col-12  col-sm-12 col-md-12 col-lg-6 text-center">
+      <img class="img-fluid d-block w-100 my-5 my-sm-5 my-lg-0" src="https://i.imgur.com/uNGdWHi.png">
     </div>
 
-    <div class="col-12 px-5 align-self-center bg-white col-sm-12 col-md-6">
+    <div class="col-12  col-sm-12 col-md-12 col-lg-6 px-5  bg-white">
       <h5 class="text-center">{% trans "Iniciar sesión con" %}</h5>
       {% get_providers as socialaccount_providers %}
       {% if socialaccount_providers %}
@@ -34,7 +34,7 @@
         <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
       {% endif %}
 
-      <form class="login" method="POST" action="{% url 'account_login' %}">
+      <form class="login mb-5 mb-sm-5 mb-lg-0" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form | crispy }}
         {% if redirect_field_value %}

@@ -7,17 +7,17 @@
 
 {% block content %}
 <div class="container py-5 bg-white h-100">
-  <div class="row">
-    <div class="col-6 align-self-center">
-      <img class="img-fluid rounded" src="https://quodem.com/wp-content/uploads/2017/12/registro-de-pacientes-fases.jpg" alt="">
+  <div class="row h-100 justify-content-center align-content-center mt-3">
+    <div class="col-12  col-sm-12 col-md-12 col-lg-6 align-self-center">
+      <img class="img-fluid rounded d-block w-100 my-5 my-sm-5 my-lg-0" src="https://quodem.com/wp-content/uploads/2017/12/registro-de-pacientes-fases.jpg" alt="">
     </div>
-    <div class="col-6 ">
+    <div class="col-12  col-sm-12 col-md-12 col-lg-6 ">
       <div class="text-center">
         <h1>{% trans "Sign Up" %}</h1>
         <p class="my-4">{% blocktrans %}¿Ya tienes una cuenta? por favor <a href="{{ login_url }}">inicia sesión</a>.{% endblocktrans %}
         </p>
       </div>
-      <form class="signup px-5" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      <form class="signup px-5 mb-5 mb-sm-5 mb-lg-0" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form | crispy}}
         {% if redirect_field_value %}

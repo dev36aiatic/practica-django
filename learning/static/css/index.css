@@ -120,4 +120,8 @@ body {
         width: 100%;
         margin-bottom: 30px;
     }
+
+    .container {
+        width: 100% !important;
+    }
 }
