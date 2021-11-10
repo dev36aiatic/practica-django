@@ -10,7 +10,9 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = forms.CharField(widget=forms.PasswordInput())
     photo = models.ImageField(upload_to='user-images')
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 class Board(models.Model):
     PUBLIC = 'PU'
     PRIVATE = 'PR'
@@ -21,7 +23,9 @@ class Board(models.Model):
     name = models.CharField(max_length=36)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null= True)
     status = models.CharField(max_length=2, choices=BOARD_STATUS, default=PUBLIC)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 class Ideas(models.Model):
     PUBLIC = 'PU'
     PRIVATE = 'PR'
@@ -33,3 +37,5 @@ class Ideas(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE,null= True)
     name = models.CharField(max_length=36)
     status = models.CharField(max_length=2, choices=BOARD_STATUS, default=PUBLIC)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
