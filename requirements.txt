@@ -5,3 +5,4 @@ django-allauth
 django-crispy-forms
 Pillow
 djangorestframework
+whitenoise
