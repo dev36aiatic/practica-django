@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from learning.models import User
-from .serializers import UserSerializer
+from .models import Board, Ideas, User
+
 from rest_framework import viewsets
 
-class UserViewSet(viewsets.ModelViewSet):
+
+""" class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = User.objects.all()"""

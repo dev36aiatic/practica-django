@@ -43,13 +43,13 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[('PU', 'Publico'), ('PR', 'Privado')], default='PU', max_length=2)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('board', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='learning.board')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='learning.user')),
+                ('board', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='api.board')),
+                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='api.user')),
             ],
         ),
         migrations.AddField(
             model_name='board',
             name='owner',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='learning.user'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='api.user'),
         ),
     ]

@@ -16,9 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from learning import views
 from allauth.account import views as allauth_views
-
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
@@ -27,6 +26,7 @@ urlpatterns = [
     path('', include('api.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('learning.urls')),
+    path('auth/', obtain_auth_token),
 ]
 """ <a href="{% url 'account_login' %}">Login</a> """
 
