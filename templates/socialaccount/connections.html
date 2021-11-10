@@ -52,7 +52,7 @@
             {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
             </ul>
             <a style="font-size: 20px;" class="btn btn-link text-center  secondaryAction"
-            href="/accounts/profile/">Ir al inicio </a>
+            href="{% url 'profile' %}">Ir al inicio </a>
             {% include "socialaccount/snippets/login_extra.html" %}
         </div>
     </div>
