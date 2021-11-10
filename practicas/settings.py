@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'rest_framework',
     'learning',
+    'api',
     'templates',
     'allauth',
     'allauth.account',
@@ -58,6 +60,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'crispy_forms',
+    
 ]
 
 SITE_ID = 1
