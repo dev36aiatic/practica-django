@@ -1,20 +1,7 @@
 from django.db import models
 from django import forms
 
-
-# Create your models here.
-class User(models.Model):
-    first_name = models.CharField(max_length=36)
-    last_name = models.CharField(max_length=36)
-    id_number = models.CharField(max_length=10, unique=True)
-    email = models.EmailField(unique=True)
-    password = forms.CharField(widget=forms.PasswordInput())
-    photo = models.ImageField(upload_to='user-images')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{ self.id } - { self.first_name } { self.last_name }"
+from django.contrib.auth.models import User
     
 class Board(models.Model):
     
