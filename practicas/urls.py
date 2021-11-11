@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('api.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('learning.urls')),
+    path('accounts/', include('api.urls')),
     path('auth/', obtain_auth_token),
 ]
 """ <a href="{% url 'account_login' %}">Login</a> """

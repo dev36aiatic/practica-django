@@ -17,6 +17,7 @@ class User(models.Model):
         return f"{ self.id } - { self.first_name } { self.last_name }"
     
 class Board(models.Model):
+    
     PUBLIC = 'PU'
     PRIVATE = 'PR'
     BOARD_STATUS = [
@@ -24,7 +25,7 @@ class Board(models.Model):
         (PRIVATE, 'Privado')
     ]
     name = models.CharField(max_length=36)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null= True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE , null= True)
     status = models.CharField(max_length=2, choices=BOARD_STATUS, default=PUBLIC)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
