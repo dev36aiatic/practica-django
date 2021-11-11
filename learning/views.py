@@ -1,17 +1,15 @@
 from django.http.response import HttpResponse
-from django.views import View
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
-def home(request):
+""" def home(request):
     return render(request, 'home.html', {'valor': 'Hola soy una variable'})
+ """
+class HomeView(TemplateView):
 
-""" class User(View):
-    users = User.objects.all()
-    output = ''
+    template_name = 'home.html'
 
-    for user in users:
-        output += f"{user.first_name } {user.last_name} {user.id} <br>" 
-
-    def get(self, request):
-        return HttpResponse(self.output) """
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        """ context['users'] = User.objects.get(id=3); """
+        return context
