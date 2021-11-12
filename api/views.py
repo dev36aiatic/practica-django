@@ -16,6 +16,16 @@ class AddBoardView(CreateView):
         initial['owner'] = self.request.user
         return initial
 
+class BoardsView(TemplateView):
+    
+    template_name = 'boards.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+           
+
 
 class RegistrationView(CreateView):
     template_name = '../templates/account/signup.html'

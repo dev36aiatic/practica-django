@@ -1,11 +1,19 @@
-{% extends 'layouts/first.html'%}
+{% extends 'base.html'%}
 
 {% block content %}
-{% load account %}
 
-{% if user.is_authenticated %}
-<div class="container bg-white py-5 h-100 d-flex flex-column justify-content-center align-items-center">
-{{title}}
+{% load account %}
+<div style="background-color: #e3f2fd; z-index: 99999999999999999999999999999;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% include './partials/navbar.html'%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container bg-white d-flex flex-column justify-content-center align-items-center">
+
     <div class="row">
         <div class="col-12 text-center text-dark ">
             <h2 class="pt-5">Bienvenido
@@ -35,17 +43,6 @@
             <a class="btn col-12  col-sm-12 mb-3 mb-sm-3 mb-lg-0 mx-md-3 col-lg-auto btn-secondary" href="{% url 'account_logout' %}">Cerrar sesión</a>
         </div>
     </div>
-{% else %}
-    <div class="container bg-white text-center h-100 py-5">
-        <div class="row h-100 align-items-center">
-            <div class="col">
-                <p>Parece que no has iniciado sesión campeon, por favor inicia sesión o registrate.</p>
-                <a class="btn btn-primary"href="{% url 'account_login' %}">Iniciar Sesión</a>
-                <a class="btn btn-primary"href="{% url 'account_signup' %}">Registrarse</a>            
-            </div>
-        </div>
-    </div>
-{% endif %}
 
 </div>
 
