@@ -25,10 +25,10 @@ urlpatterns = [
     path('', allauth_views.login, name="account_login"),
     path('', include('api.urls')),
     path('accounts/', include('allauth.urls')),
-    path('accounts/', include('learning.urls')),
     path('accounts/', include('api.urls')),
     path('auth/', obtain_auth_token),
 ]
+
 """ <a href="{% url 'account_login' %}">Login</a> """
 
 """  path('home', views.home, name="home"), luego en el form utilizar  action="{% url 'home' %}"  """
