@@ -3,7 +3,7 @@ from api.forms import AddBoard, RegistrationForm
 from .models import Board, Ideas, User
 from django.views.generic.edit import CreateView
 from django.urls import reverse
-
+from django.contrib import messages
 
 class AddBoardView(CreateView):
     model = Board
@@ -15,6 +15,10 @@ class AddBoardView(CreateView):
         initial = super().get_initial(*args, **kwargs)
         initial['owner'] = self.request.user
         return initial
+
+    def form_valid(self, form):
+        messages.success(self.request, f"El tablero ha sido creado exitosamente!")
+        return super().form_valid(form)    
 
 class BoardsView(TemplateView):
     

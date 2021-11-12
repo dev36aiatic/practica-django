@@ -13,8 +13,9 @@
 
 <div class="container text-white">
     <div class="row py-5 flex-wrap d-flex align-content-center">
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3 d-flex justify-content-between">
             <h5 class="text-dark">Mis tableros</h5>
+            <a  href="{% url 'add_board' %}" class="btn btn-primary">Añadir tablero</a>
         </div>
         {% for item in my_boards %}
         <div class="col-4  d-flex justify-content-center  p-3" style="background-color: #eeeeee9e;">

@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
         verbose_name="Creado en", auto_now_add=True)
     last_login = models.DateTimeField(
         verbose_name="Último inicio de sesión", auto_now=True)
-    profile_picture = models.ImageField(verbose_name="Foto", default="user.png", upload_to=img_uploader, blank=True)
+    profile_picture = models.ImageField(verbose_name="Foto de perfil", default="user.png", upload_to=img_uploader, blank=True)
 
     is_active = models.BooleanField(verbose_name="Activo", default=True)
     is_admin = models.BooleanField(
@@ -111,9 +111,9 @@ class Board(models.Model):
         (PUBLIC, 'Publico'),
         (PRIVATE, 'Privado')
     ]
-    name = models.CharField(max_length=36)
+    name = models.CharField(verbose_name="Nombre" , max_length=36)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    status = models.CharField(
+    status = models.CharField(verbose_name="Estado" , 
         max_length=2, choices=BOARD_STATUS, default=PUBLIC)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
