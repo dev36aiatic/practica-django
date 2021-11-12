@@ -1,10 +1,7 @@
-from django.contrib.auth import get_user
-from django.shortcuts import get_object_or_404, render
-from api.forms import AddBoard
+from api.forms import AddBoard, RegistrationForm
 from .models import Board, Ideas, User
 from django.views.generic.edit import CreateView
-from django.contrib.auth.decorators import login_required
-from rest_framework import viewsets
+from django.urls import reverse
 
 class AddBoardView(CreateView):
     model = Board
@@ -16,3 +13,20 @@ class AddBoardView(CreateView):
         initial = super().get_initial(*args, **kwargs)
         initial['owner'] =  self.request.user
         return initial
+
+class RegistrationView(CreateView):
+    template_name = '../templates/account/signup.html'
+    form_class = RegistrationForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RegistrationView, self).get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next')
+        return context
+    
+    def get_success_url(self):
+        next_url = self.request.POST.get('next')
+        success_url = reverse('login')
+        if next_url:
+            success_url += '?next={}'.format(next_url)
+
+        return success_url

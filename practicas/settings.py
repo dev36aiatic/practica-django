@@ -27,14 +27,14 @@ SECRET_KEY = 'django-insecure-=zm_+ih_!uzzfes9(v*(oj6sc6f#!8dhncgqlm^@c^1_t28az5
 DEBUG = True
 
 ALLOWED_HOSTS = [
-   '*',
-   'https://django-practicas.herokuapp.com',
-   'https://django-practicas.herokuapp.com/',
-   'http://django-practicas.herokuapp.com',
-   'http://django-practicas.herokuapp.com/',
-   'django-practicas.herokuapp.com',
-   'http://django-practicas.herokuapp.com/',
-   '127.0.0.1',
+    '*',
+    'https://django-practicas.herokuapp.com',
+    'https://django-practicas.herokuapp.com/',
+    'http://django-practicas.herokuapp.com',
+    'http://django-practicas.herokuapp.com/',
+    'django-practicas.herokuapp.com',
+    'http://django-practicas.herokuapp.com/',
+    '127.0.0.1',
 ]
 
 REST_FRAMEWORK = {
@@ -70,15 +70,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'crispy_forms',
-    
-]
 
+]
 
 
 SITE_ID = 1
 
 SOCIALACCOUNT_PROVIDERS = {
-     'google': {
+    'google': {
         'SCOPE': [
             'profile',
             'email',
@@ -93,7 +92,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'LOCALE_FUNC': lambda request: 'es_CO',
     },
-     'github': {
+    'github': {
         'SCOPE': [
             'user',
             'repo',
@@ -144,6 +143,15 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dev36@aiatic.com'
+EMAIL_HOST_PASSWORD = '#DBAR2021//'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_FROM = 'noresponder@django-practicas.herokuapp.com'
+
 WSGI_APPLICATION = 'practicas.wsgi.application'
 
 
@@ -151,11 +159,20 @@ WSGI_APPLICATION = 'practicas.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    'dev': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bvdar9xftyusheydf0sn',
+        'USER': 'unfgfy0xqi2acdnomlul',
+        'PASSWORD': 'pduAEPdau462jqI6W9WZ',
+        'HOST': 'bvdar9xftyusheydf0sn-postgresql.services.clever-cloud.com',
+        'PORT': '5432',
+    },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
@@ -201,14 +218,25 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'learning/static'),)
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'api.User'
+ACCOUNT_FORMS = {
+    'signup': 'api.forms.RegistrationForm'
+}
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED=True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_LOGOUT_ON_GET = True; 
 
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+
+ACCOUNT_LOGOUT_ON_GET = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-

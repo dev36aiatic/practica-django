@@ -16,8 +16,8 @@
                 {% user_display user %}
                 {% endif %}
             </h2>
-            <img style="border-radius: 100%;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
-            <img style="border-radius: 100%;" class="my-3" src="{{ user.get_avatar_url }}" />
+            <img style="border-radius: 100%; width: 150px;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
+            <img style="border-radius: 100%; width: 150px;" class="my-3" src="{{ user.get_avatar_url }}" />
         </div>
         <div class="col-12">
             <div class="alert alert-success text-center">
