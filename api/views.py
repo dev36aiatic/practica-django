@@ -23,6 +23,9 @@ class BoardsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['boards'] = Board.objects.all()
+        context['public_boards'] = Board.objects.filter(status='PU')
+        context['private_boards'] = Board.objects.filter(status='PR')
+        context['my_boards'] = Board.objects.filter(owner=self.request.user.id)
         return context
            
 
