@@ -5,11 +5,11 @@
 <div class="container" style="height: 100%;">
     <div class="row justify-content-center p-5">
         <div class="col-12">
-            <h5 class="text-center">Añadir Tablero</h5>
+            <h5 class="text-center text-dark">Estás añadiendo una idea al tablero con nombre: {{ board.name }}</h5>
         </div>
         <div class="col-6 bg-white py-5">
-           
-            <form method="POST" action="{% url 'add_board' %}">
+            <a class="btn btn-secondary " href="{% url 'boards_id' pk=board.id %}">Volver al tablero</a>
+            <form class="mt-4" method="POST" action="{% url 'new_idea' board.id %}">
                 {% csrf_token %}
                 {{ form | crispy }}
                 <input type="submit" class="btn btn-primary d-block my-3 w-75 mx-auto" value="Añadir">

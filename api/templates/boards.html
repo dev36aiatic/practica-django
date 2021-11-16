@@ -1,15 +1,6 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<div style="background-color: #e3f2fd; z-index: 99999999999999999999999999999;">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {% include './partials/navbar.html'%}
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container text-white">
     <div class="row py-5 flex-wrap d-flex align-content-center">
@@ -40,7 +31,7 @@
                             <small>{{ item.owner }}</small>
                         </p>
                     </p>
-                    <a href="#" class="btn btn-primary">Ir al tablero</a>
+                    <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
                 </div>
             </div>
         </div>
@@ -76,7 +67,7 @@
                             <small>{{ item.owner }}</small>
                         </p>
                     </p>
-                    <a href="#" class="btn btn-primary">Ir al tablero</a>
+                    <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
                 </div>
             </div>
         </div>
@@ -112,7 +103,7 @@
                             <small>{{ item.owner }}</small>
                         </p>
                     </p>
-                    <a href="#" class="btn btn-primary">Ir al tablero</a>
+                   <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
                 </div>
             </div>
         </div>
@@ -148,7 +139,7 @@
                             <small>{{ item.owner }}</small>
                         </p>
                     </p>
-                    <a href="#" class="btn btn-primary">Ir al tablero</a>
+                   <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
                 </div>
             </div>
         </div>

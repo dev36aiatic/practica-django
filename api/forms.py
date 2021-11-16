@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board, User
+from .models import Board, Ideas, User
 
 
 class AddBoard(forms.ModelForm):
@@ -16,12 +16,28 @@ class AddBoard(forms.ModelForm):
         return super().form_valid(form)
 
 
+class AddIdea(forms.ModelForm):
+    class Meta:
+        model = Ideas
+        fields = ('board', 'owner', 'name','status')
+
+        widgets = {
+            'owner': forms.HiddenInput(),
+            'board': forms.HiddenInput(),
+        }
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'id_num', 'profile_picture', 'password']
+        fields = ['email', 'username', 'first_name',
+                  'last_name', 'id_num', 'profile_picture', 'password']
 
     def save(self, commit=True):
         # Save the provided password in hashed format

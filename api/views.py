@@ -1,11 +1,17 @@
-from django.views.generic.base import TemplateView
-from api.forms import AddBoard, RegistrationForm
+from django.urls.base import reverse_lazy
+from django.views.generic.base import RedirectView, TemplateView
+from django.views.generic.detail import DetailView
+from api.forms import AddBoard, AddIdea, RegistrationForm
+from django.shortcuts import redirect, get_object_or_404
 from .models import Board, Ideas, User
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 from django.contrib import messages
+from django.http import Http404
+
 
 class AddBoardView(CreateView):
+    
     model = Board
     form_class = AddBoard
     template_name = 'form-board.html'
@@ -17,11 +23,42 @@ class AddBoardView(CreateView):
         return initial
 
     def form_valid(self, form):
-        messages.success(self.request, f"El tablero ha sido creado exitosamente!")
-        return super().form_valid(form)    
+        messages.success(
+            self.request, f"El tablero ha sido creado exitosamente!")
+        return super().form_valid(form)
+
+class AddIdeaView(CreateView):
+
+    model = Ideas
+    form_class = AddIdea
+    template_name = 'form-idea.html'
+    success_url = reverse_lazy('boards_id')
+    pk = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['owner'] = self.request.user
+        context['board'] = Board.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get_initial(self, *args, **kwargs):
+        initial = super().get_initial(*args, **kwargs)
+        initial['owner'] = self.request.user
+        initial['board'] = Board.objects.get(pk=self.kwargs.get('pk'))
+        return initial
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"La idea ha sido añadida al tablero exitosamente!")
+        self.pk = self.kwargs.get('pk')
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+         #print(self.pk)
+         return reverse('new_idea', kwargs={'pk': self.pk})
 
 class BoardsView(TemplateView):
-    
+
     template_name = 'boards.html'
 
     def get_context_data(self, **kwargs):
@@ -31,10 +68,30 @@ class BoardsView(TemplateView):
         context['private_boards'] = Board.objects.filter(status='PR')
         context['my_boards'] = Board.objects.filter(owner=self.request.user.id)
         return context
-           
 
+
+class BoardDetailView(DetailView):
+
+    model = Board
+    template_name = 'board-detail.html'
+    context_object_name = "board"
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('boards'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['ideas'] = Ideas.objects.filter(board=self.kwargs.get('pk'))
+
+        return context       
+       
 
 class RegistrationView(CreateView):
+
     template_name = '../templates/account/signup.html'
     form_class = RegistrationForm
 
@@ -50,6 +107,7 @@ class RegistrationView(CreateView):
             success_url += '?next={}'.format(next_url)
 
         return
+
 
 class HomeView(TemplateView):
 

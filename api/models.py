@@ -78,8 +78,8 @@ class User(AbstractBaseUser):
     # a admin user; non super-user
     is_staff = models.BooleanField(verbose_name="Personal", default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'id_num', 'first_name', 'last_name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'id_num', 'first_name', 'last_name']
 
     objects = UserManager()
 
