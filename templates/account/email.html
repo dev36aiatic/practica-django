@@ -5,6 +5,7 @@
 {% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
 
 {% block content %}
+
     <div class="container bg-white text-center h-100 py-5 ">
       <div class="row h-100 justify-content-center h-100 flex-wrap align-content-center ">
         <div class="col-12">
@@ -53,8 +54,6 @@
               {{ form | crispy }}
               <button name="action_add" class="btn btn-primary d-block mx-auto my-3" type="submit">{% trans "Add E-mail" %}</button>
           </form>
-          <a style="font-size: 20px;" class="btn btn-link text-center  secondaryAction"
-          href="{% url 'profile' %}">Ir al inicio </a>
             {% endif %}
         </div>
       </div>
