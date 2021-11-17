@@ -15,14 +15,16 @@
 <div class="container">
     <div class="row d-flex flex-wrap py-5 justify-content-center">
         {% for idea in ideas %}
-        <div class="col-3 mx-4 mb-5 post-it">
-            <h3 class="mb-3">{{ idea.name }}</h3>
+        <div class="col-3 mx-4 mb-5 post-it ">
+            <h3 class="mb-3 d-flex flex-wrap">{{ idea.name }}</h3>
             <p> Estado: {% if idea.status == 'PU' %}
                 <span>Publico</span>
                 {% else %}
                 <span>Privado</span>
                 {% endif %}</p>
             <p><small>Creador: {{idea.owner}}</small></p>
+            <a href="{% url 'update_idea' board.id idea.id %}" class="text-primary"><i class="fas fa-edit"></i></a>
+            <a href="#" class="d-inline-block mx-2 text-danger"><i class="fas fa-trash"></i></a>
         </div>
         {% endfor %}
     </div>
@@ -42,6 +44,7 @@
     -o-transition: -o-transform .15s linear;
     -webkit-transition: -webkit-transform .15s linear;
     transition: -webkit-transform .15s linear;
+    overflow: hidden;
 }
 
 .post-it {
