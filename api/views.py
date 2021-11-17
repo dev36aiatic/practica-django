@@ -95,24 +95,18 @@ class EditIdeaView(UpdateView):
             return redirect(reverse('boards_id',  kwargs={'pk': self.kwargs.get('pk2')}))
 
     def form_valid(self, form):
-        db_board =  Board.objects.get(pk=self.kwargs.get('pk2'))
+        db_idea =  Ideas.objects.get(pk=self.kwargs.get('pk'))
 
-        if db_board.status == 'PU':
+        if (str(db_idea.owner) == str(self.request.user.email)):
             messages.success(
                 self.request, f"La idea ha sido editada exitosamente!")
             self.pk2 = self.kwargs.get('pk2')
             return super().form_valid(form)
         else:
-            if (str(db_board.owner) == str(self.request.user.email)):  
-                messages.success(
-                    self.request, f"La idea en el tablero privado ha sido editada exitosamente!")
-                self.pk = self.kwargs.get('pk2')
-                return super().form_valid(form)
-            else:
-                messages.error(
-                    self.request, f"Este tablero es privado y solo el dueño del mismo puede editar notas.")
-                form.add_error(field="owner", error="Este tablero es privado y solo el dueño del mismo puede añadir notas.")
-                return super().form_invalid(form)    
+            messages.error(
+                self.request, f"Solo puedes editar la nota si eres el creador de la misma")
+            form.add_error(field="owner", error="Solo puedes editar la nota si eres el creador de la misma")
+            return super().form_invalid(form)    
 
     def get_success_url(self):
          #print(self.pk)
