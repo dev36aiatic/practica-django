@@ -45,13 +45,29 @@ class AddIdeaView(CreateView):
         initial = super().get_initial(*args, **kwargs)
         initial['owner'] = self.request.user
         initial['board'] = Board.objects.get(pk=self.kwargs.get('pk'))
+        initial['status'] = Board.objects.get(pk=self.kwargs.get('pk')).status
         return initial
 
     def form_valid(self, form):
-        messages.success(
-            self.request, f"La idea ha sido añadida al tablero exitosamente!")
-        self.pk = self.kwargs.get('pk')
-        return super().form_valid(form)
+        db_board =  Board.objects.get(pk=self.kwargs.get('pk'))
+
+        if db_board.status == 'PU':
+            messages.success(
+                self.request, f"La idea ha sido añadida al tablero exitosamente!")
+            self.pk = self.kwargs.get('pk')
+            return super().form_valid(form)
+        else:
+            if (str(db_board.owner) == str(self.request.user.email)):  
+                messages.success(
+                    self.request, f"La idea ha sido añadida al tablero privado exitosamente!")
+                self.pk = self.kwargs.get('pk')
+                return super().form_valid(form)
+            else:
+                messages.error(
+                    self.request, f"Este tablero es privado y solo el dueño del mismo puede añadir notas.")
+                form.add_error(field="owner", error="Este tablero es privado y solo el dueño del mismo puede añadir notas.")
+                return super().form_invalid(form)
+
     
     def get_success_url(self):
          #print(self.pk)

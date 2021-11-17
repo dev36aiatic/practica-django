@@ -17,7 +17,13 @@
             {% if messages %}
             <div>
                 {% for message in messages %}
-                <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS  %}
+                        <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <p class="alert text-center alert-danger" id="message_container" role="alert">{{message}}</p>
+                    {% else %}
+                        <p class="alert text-center alert-info" id="message_container" role="alert">{{message}}</p>
+                    {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
@@ -30,7 +36,7 @@
 
         setTimeout(function () {
             message_ele.style.display = "none";
-        }, 3000);
+        }, 4000);
     });
 </script>
 {% endblock %}
