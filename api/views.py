@@ -1,10 +1,10 @@
 from django.urls.base import reverse_lazy
-from django.views.generic.base import RedirectView, TemplateView
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from api.forms import AddBoard, AddIdea, RegistrationForm
-from django.shortcuts import redirect, get_object_or_404
-from .models import Board, Ideas, User
-from django.views.generic.edit import CreateView
+from django.shortcuts import redirect
+from .models import Board, Ideas
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
@@ -26,6 +26,7 @@ class AddBoardView(CreateView):
         messages.success(
             self.request, f"El tablero ha sido creado exitosamente!")
         return super().form_valid(form)
+
 
 class AddIdeaView(CreateView):
 
@@ -68,10 +69,48 @@ class AddIdeaView(CreateView):
                 form.add_error(field="owner", error="Este tablero es privado y solo el dueño del mismo puede añadir notas.")
                 return super().form_invalid(form)
 
-    
     def get_success_url(self):
          #print(self.pk)
-         return reverse('new_idea', kwargs={'pk': self.pk})
+         return reverse('create_idea', kwargs={'pk': self.pk})
+
+class EditIdeaView(UpdateView):
+
+    model = Ideas
+    form_class = AddIdea
+    template_name = 'form-edit-idea.html'
+    success_url = reverse_lazy('update_idea')
+    pk2 = None
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['owner'] = self.request.user
+        context['board'] = Board.objects.get(pk=self.kwargs.get('pk2'))
+        context['idea'] = Ideas.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def form_valid(self, form):
+        db_board =  Board.objects.get(pk=self.kwargs.get('pk2'))
+
+        if db_board.status == 'PU':
+            messages.success(
+                self.request, f"La idea ha sido editada exitosamente!")
+            self.pk2 = self.kwargs.get('pk2')
+            return super().form_valid(form)
+        else:
+            if (str(db_board.owner) == str(self.request.user.email)):  
+                messages.success(
+                    self.request, f"La idea en el tablero privado ha sido editada exitosamente!")
+                self.pk = self.kwargs.get('pk2')
+                return super().form_valid(form)
+            else:
+                messages.error(
+                    self.request, f"Este tablero es privado y solo el dueño del mismo puede editar notas.")
+                form.add_error(field="owner", error="Este tablero es privado y solo el dueño del mismo puede añadir notas.")
+                return super().form_invalid(form)    
+
+    def get_success_url(self):
+         #print(self.pk)
+         return reverse('update_idea', kwargs={'pk2': self.kwargs.get('pk2'), 'pk': self.kwargs.get('pk')})
 
 class BoardsView(TemplateView):
 

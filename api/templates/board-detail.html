@@ -7,7 +7,7 @@
             <h3>{{board.name}}</h3>
         </div>
         <div class="position-absolute" style="top: 18px;"> 
-            <a href="{% url 'new_idea' pk=board.id%}" class="btn btn-primary">Añadir idea</a>
+            <a href="{% url 'create_idea' pk=board.id%}" class="btn btn-primary">Añadir idea</a>
         </form>
         </div>
     </div>
