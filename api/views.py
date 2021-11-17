@@ -88,6 +88,12 @@ class EditIdeaView(UpdateView):
         context['idea'] = Ideas.objects.get(pk=self.kwargs.get('pk'))
         return context
 
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('boards_id',  kwargs={'pk': self.kwargs.get('pk2')}))
+
     def form_valid(self, form):
         db_board =  Board.objects.get(pk=self.kwargs.get('pk2'))
 
@@ -111,6 +117,7 @@ class EditIdeaView(UpdateView):
     def get_success_url(self):
          #print(self.pk)
          return reverse('update_idea', kwargs={'pk2': self.kwargs.get('pk2'), 'pk': self.kwargs.get('pk')})
+
 
 class BoardsView(TemplateView):
 
