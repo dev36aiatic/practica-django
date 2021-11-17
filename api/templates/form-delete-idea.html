@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center p-5">
+        <div class="col-12">
+            <h5 class="text-center text-dark">¿Estás seguro que deseas borrar la idea {{ idea.name }} ?</h5>
+        </div>
+        <div class="col-6 bg-white py-5">
+            <a class="btn btn-secondary " href="{% url 'boards_id' pk=board.id %}">Volver al tablero</a>
+            <form class="mt-4" method="POST" action="{% url 'delete_idea' board.id idea.id%}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" class="btn btn-danger d-block my-3 w-75 mx-auto" value="Borrar">
+            </form>
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS  %}
+                        <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <p class="alert text-center alert-danger" id="message_container" role="alert">{{message}}</p>
+                    {% else %}
+                        <p class="alert text-center alert-info" id="message_container" role="alert">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        let message_ele = document.getElementById("message_container");
+
+        setTimeout(function () {
+            message_ele.style.display = "none";
+        }, 3000);
+    });
+</script>
+{% endblock %}

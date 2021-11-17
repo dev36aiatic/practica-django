@@ -24,7 +24,7 @@
                 {% endif %}</p>
             <p><small>Creador: {{idea.owner}}</small></p>
             <a href="{% url 'update_idea' board.id idea.id %}" class="text-primary"><i class="fas fa-edit"></i></a>
-            <a href="#" class="d-inline-block mx-2 text-danger"><i class="fas fa-trash"></i></a>
+            <a  href="{% url 'delete_idea' board.id idea.id %}" class="d-inline-block mx-2 text-danger"><i class="fas fa-trash"></i></a>
         </div>
         {% endfor %}
     </div>
