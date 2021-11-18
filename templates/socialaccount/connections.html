@@ -5,54 +5,76 @@
 {% block head_title %}{% trans "Account Connections" %}{% endblock %}
 
 {% block content %}
+<div style="background-color: #e3f2fd; z-index: 99999999999999999999999999999;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% include '../partials/navbar.html'%}
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container bg-white h-100 py-5 text-center h-100">
     <div class="row justify-content-center align-content-center h-100">
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS  %}
+            <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <p class="alert text-center alert-danger" id="message_container" role="alert">{{message}}</p>
+            {% else %}
+            <p class="alert text-center alert-info" id="message_container" role="alert">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="col-12">
             <h1 class="text-center">{% trans "Account Connections" %}</h1>
             {% if form.accounts %}
-            <strong class="text-center text-info d-block my-3">{% blocktrans %}Cuentas de terceros asociadas:{% endblocktrans %}</strong>
-            
-            
+            <strong class="text-center text-info d-block my-3">{% blocktrans %}Cuentas de terceros
+                asociadas:{% endblocktrans %}</strong>
+
+
             <form method="post" class="connections_form" action="{% url 'socialaccount_connections' %}">
-            {% csrf_token %}
-            
-            <fieldset class="w-50 d-block mx-auto text-left">
-            {% if form.non_field_errors %}
-            <div id="errorMsg">{{ form.non_field_errors }}</div>
-            {% endif %}
-            
-            {% for base_account in form.accounts %}
-            {% with base_account.get_provider_account as account %}
-            <div class="text-right">
-            <label for="id_account_{{ base_account.id }}">
-            <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
-            <strong class="socialaccount_provider">{{account.get_brand.name}}:</strong>
-            {{ account }}
-            </label>
-            </div>
-            
-            {% endwith %}
-            {% endfor %}
-            
-            <div>
-            <button type="submit" class="btn d-block mx-auto  my-3 btn-danger">{% trans 'Remove' %}</button>
-            </div>
-            
-            </fieldset>
-            
+                {% csrf_token %}
+
+                <fieldset class="w-50 d-block mx-auto text-left">
+                    {% if form.non_field_errors %}
+                    <div id="errorMsg">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    {% for base_account in form.accounts %}
+                    {% with base_account.get_provider_account as account %}
+                    <div class="text-right">
+                        <label for="id_account_{{ base_account.id }}">
+                            <input id="id_account_{{ base_account.id }}" type="radio" name="account"
+                                value="{{ base_account.id }}" />
+                            <strong class="socialaccount_provider">{{account.get_brand.name}}:</strong>
+                            {{ account }}
+                        </label>
+                    </div>
+
+                    {% endwith %}
+                    {% endfor %}
+
+                    <div>
+                        <button type="submit" class="btn d-block mx-auto  my-3 btn-danger">{% trans 'Remove' %}</button>
+                    </div>
+
+                </fieldset>
+
             </form>
-            
+
             {% else %}
             <p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
             {% endif %}
-            
+
             <h2 class="my-3">{% trans 'Add a 3rd Party Account' %}</h2>
-            
+
             <ul class="socialaccount_providers">
-            {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+                {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
             </ul>
-            <a style="font-size: 20px;" class="btn btn-link text-center  secondaryAction"
-            href="/accounts/profile/">Ir al inicio </a>
             {% include "socialaccount/snippets/login_extra.html" %}
         </div>
     </div>

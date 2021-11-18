@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center p-5">
+        <div class="col-12">
+            <h5 class="text-center">Añadir Tablero</h5>
+        </div>
+        <div class="col-6 bg-white py-5">
+           
+            <form method="POST" action="{% url 'add_board' %}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" class="btn btn-primary d-block my-3 w-75 mx-auto" value="Añadir">
+            </form>
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        let message_ele = document.getElementById("message_container");
+
+        setTimeout(function () {
+            message_ele.style.display = "none";
+        }, 3000);
+    });
+</script>
+{% endblock %}

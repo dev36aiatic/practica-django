@@ -3,3 +3,6 @@ gunicorn
 django-heroku
 django-allauth
 django-crispy-forms
+Pillow
+djangorestframework
+whitenoise

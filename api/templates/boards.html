@@ -1,0 +1,149 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="container text-white">
+    <div class="row py-5 flex-wrap d-flex align-content-center">
+        <div class="col-12 mb-3 d-flex justify-content-between">
+            <h5 class="text-dark">Mis tableros</h5>
+            <a  href="{% url 'add_board' %}" class="btn btn-primary">Añadir tablero</a>
+        </div>
+        {% for item in my_boards %}
+        <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center  p-3" style="background-color: #eeeeee9e;">
+            <div class="card w-100 text-dark border-none">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuW3X_QtQvWNjhARCJBYQ5hCoy6RMCrpD33Q&usqp=CAU"
+                    alt="IMAGEN DEL TABLERO">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ item.name }}</h5>
+                    <p class="card-text">
+                        <p class="mb-0">
+                            <strong>Estado: </strong>
+                            {% if item.status == 'PU' %}
+                            <span>Publico</span>
+                            {% else %}
+                            <span>Privado</span>
+                            {% endif %}
+                        </p>
+                        <p class="mb-0">
+                            <strong>Dueño: </strong>
+                            <small>{{ item.owner }}</small>
+                        </p>
+                    </p>
+                    <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container text-white">
+    <div class="row py-5 flex-wrap d-flex align-content-center">
+        <div class="col-12 mb-3">
+            <h5 class="text-dark">Todos los tableros</h5>
+        </div>
+        {% for item in boards %}
+        <div class="col-12 col-sm-6 col-lg-4  d-flex justify-content-center  p-3" style="background-color: #eeeeee9e;">
+            <div class="card w-100 text-dark border-none">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuW3X_QtQvWNjhARCJBYQ5hCoy6RMCrpD33Q&usqp=CAU"
+                    alt="IMAGEN DEL TABLERO">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ item.name }}</h5>
+                    <p class="card-text">
+                        <p class="mb-0">
+                            <strong>Estado: </strong>
+                            {% if item.status == 'PU' %}
+                            <span>Publico</span>
+                            {% else %}
+                            <span>Privado</span>
+                            {% endif %}
+                        </p>
+                        <p class="mb-0">
+                            <strong>Dueño: </strong>
+                            <small>{{ item.owner }}</small>
+                        </p>
+                    </p>
+                    <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container text-white">
+    <div class="row flex-wrap py-5 flex-wrap d-flex align-content-center">
+        <div class="col-12 mb-3">
+            <h5 class="text-dark">Tableros publicos</h5>
+        </div>
+        {% for item in public_boards %}
+        <div class="col-12 col-sm-6 col-lg-4  d-flex justify-content-center  p-3" style="background-color: #eeeeee9e;">
+            <div class="card w-100 text-dark border-none">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuW3X_QtQvWNjhARCJBYQ5hCoy6RMCrpD33Q&usqp=CAU"
+                    alt="IMAGEN DEL TABLERO">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ item.name }}</h5>
+                    <p class="card-text">
+                        <p class="mb-0">
+                            <strong>Estado: </strong>
+                            {% if item.status == 'PU' %}
+                            <span>Publico</span>
+                            {% else %}
+                            <span>Privado</span>
+                            {% endif %}
+                        </p>
+                        <p class="mb-0">
+                            <strong>Dueño: </strong>
+                            <small>{{ item.owner }}</small>
+                        </p>
+                    </p>
+                   <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Tableros privados -->
+<div class="container text-white">
+    <div class="row py-5 flex-wrap d-flex align-content-center">
+        <div class="col-12 mb-3">
+            <h5 class="text-dark">Tableros privados</h5>
+        </div>
+        {% for item in private_boards %}
+        <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center  p-3" style="background-color: #eeeeee9e;">
+            <div class="card w-100 text-dark border-none">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuW3X_QtQvWNjhARCJBYQ5hCoy6RMCrpD33Q&usqp=CAU"
+                    alt="IMAGEN DEL TABLERO">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ item.name }}</h5>
+                    <p class="card-text">
+                        <p class="mb-0">
+                            <strong>Estado: </strong>
+                            {% if item.status == 'PU' %}
+                            <span>Publico</span>
+                            {% else %}
+                            <span>Privado</span>
+                            {% endif %}
+                        </p>
+                        <p class="mb-0">
+                            <strong>Dueño: </strong>
+                            <small>{{ item.owner }}</small>
+                        </p>
+                    </p>
+                   <a href="{% url 'boards_id' pk=item.id %}" class="btn btn-primary">Ir al tablero</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
