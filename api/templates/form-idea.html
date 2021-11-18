@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container" style="height: 100%;">
-    <div class="row justify-content-center p-5">
+    <div class="row justify-content-center pt-5 pt-sm-5 p-md-5">
         <div class="col-12">
             <h5 class="text-center text-dark"><span class="mark">¡Estás añadiendo una idea!</span></h5>
             <p class="text-center mb-0">
@@ -16,7 +16,7 @@
                 {% endif %}
             </p>
         </div>
-        <div class="col-6 bg-white py-5">
+        <div class="col-12 col-md-6 bg-white py-5">
             <a class="btn btn-secondary " href="{% url 'boards_id' pk=board.id %}">Volver al tablero</a>
             <form class="mt-4" method="POST" action="{% url 'create_idea' board.id %}">
                 {% csrf_token %}
@@ -27,11 +27,11 @@
             <div>
                 {% for message in messages %}
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS  %}
-                <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                <p class="alert text-center alert-success" class="message_container" role="alert">{{message}}</p>
                 {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                <p class="alert text-center alert-danger" id="message_container" role="alert">{{message}}</p>
+                <p class="alert text-center alert-danger" class="message_container" role="alert">{{message}}</p>
                 {% else %}
-                <p class="alert text-center alert-info" id="message_container" role="alert">{{message}}</p>
+                <p class="alert text-center alert-info" class="message_container" role="alert">{{message}}</p>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -41,10 +41,12 @@
 </div>
 <script>
     window.addEventListener('load', () => {
-        let message_ele = document.getElementById("message_container");
-
+        let message_ele = document.querySelectorAll(".alert");
+        
         setTimeout(function () {
-            message_ele.style.display = "none";
+            message_ele.forEach(element =>{
+                element.style.display = "none";
+            });
         }, 3000);
     });
 </script>

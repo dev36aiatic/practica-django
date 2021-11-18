@@ -15,13 +15,12 @@
                 {% user_display user %}
                 {% endif %}
             </h2>
-            <img style="border-radius: 100%; width: 150px;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
-            <img style="border-radius: 100%; width: 150px;" class="my-3" src="{{ user.get_avatar_url }}" />
+            <img style="border-radius: 100%; width: 150px; max-width: 150px;" class="my-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
+            <img style="border-radius: 100%; width: 150px; max-width: 150px;" class="my-3" src="{{ user.get_avatar_url }}" />
         </div>
         <div class="col-12">
             <div class="alert alert-success text-center">
-                <strong>¡Felicidades!</strong>
-                has iniciado sesión correctamente en el sitio de Practica Django realizado en las practicas univeristarias
+                ¡Felicidades! has iniciado sesión correctamente en el sitio de Practica Django realizado en las practicas univeristarias
                 2021-2 en la empresa A&A Soluciones TIC
             </div>
         </div>
