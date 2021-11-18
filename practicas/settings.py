@@ -158,7 +158,7 @@ WSGI_APPLICATION = 'practicas.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'dev': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bvdar9xftyusheydf0sn',
         'USER': 'unfgfy0xqi2acdnomlul',
@@ -166,7 +166,7 @@ DATABASES = {
         'HOST': 'bvdar9xftyusheydf0sn-postgresql.services.clever-cloud.com',
         'PORT': '5432',
     },
-    'default': {
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
