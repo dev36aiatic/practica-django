@@ -1,6 +1,8 @@
 from django.urls import path
 from api.views import AddBoardView, AddIdeaView, DeleteIdeaView, EditIdeaView, HomeView, BoardsView, BoardDetailView
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('profile/', login_required(HomeView.as_view()), name="profile"),
@@ -10,4 +12,4 @@ urlpatterns = [
     path('boards/<int:pk2>/idea/<int:pk>/', login_required(EditIdeaView.as_view()), name="update_idea"),
     path('boards/<int:pk2>/idea/<int:pk>/delete/', login_required(DeleteIdeaView.as_view()), name="delete_idea"),
     path('boards/new/', login_required(AddBoardView.as_view()), name="add_board")
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
