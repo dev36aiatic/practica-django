@@ -7,7 +7,8 @@ from practicas import settings
 def img_uploader(instance, image_name):
     image_name = 'user_images/{0}/profile.jpg'.format(instance.username)
     full_path = os.path.join(settings.MEDIA_ROOT, image_name)
-    
+    if os.path.exists(full_path):
+        os.remove(full_path)
     return image_name
 
 class UserManager(BaseUserManager):
