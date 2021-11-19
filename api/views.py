@@ -1,15 +1,39 @@
-from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from api.forms import AddBoard, AddIdea, RegistrationForm
-from django.shortcuts import redirect, render
-from .models import Board, Ideas
+from django.shortcuts import redirect
+from api.serializers import BoardSerializer, UserSerializer
+from .models import Board, Ideas, User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
+from rest_framework import generics, permissions
 
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+
+class BoardList(generics.ListCreateAPIView):
+    serializer_class = BoardSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = Board.objects.all()
+
+        if self.request.GET.get('filter') == 'public':
+            queryset =  queryset = Board.objects.filter(status='PU')
+        elif  self.request.GET.get('filter') == 'private':
+            queryset =  queryset = Board.objects.filter(status='PR')
+        else:
+           queryset = Board.objects.all()     
+        return queryset
+    
+    
+            
 
 class AddBoardView(CreateView):
 
