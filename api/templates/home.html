@@ -19,7 +19,7 @@
                 src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
             <img style="border-radius: 100%; width: 150px; max-width: 150px;" class="my-3"
                 src="{{ user.get_avatar_url }}" />
-            {% if user.profile_picture != 'user.png' %}
+            {% if user.profile_picture != 'no_profile.jpg' %}
             <img style="border-radius: 100%; width: 150px; max-width: 150px;" class="my-3"
                 src="{{ request.user.profile_picture.url }}" />
             {% endif %}
