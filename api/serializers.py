@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from api.models import Board, User
+from api.models import Board, Ideas, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,3 +13,13 @@ class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields=  ('id', 'name', 'owner', 'status')
+
+class IdeasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ideas
+        fields=  ('id', 'name', 'owner', 'board', 'status')
+
+class CreateIdeasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ideas
+        fields=  ('id', 'name', 'owner', 'board', 'status')

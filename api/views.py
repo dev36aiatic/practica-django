@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from api.forms import AddBoard, AddIdea, RegistrationForm
 from django.shortcuts import redirect
-from api.serializers import BoardSerializer, UserSerializer
+from api.serializers import BoardSerializer, CreateIdeasSerializer, IdeasSerializer, UserSerializer
 from .models import Board, Ideas, User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
@@ -17,6 +17,7 @@ class UserList(generics.ListAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
+
 class BoardList(generics.ListCreateAPIView):
     serializer_class = BoardSerializer
     permission_classes = [permissions.AllowAny]
@@ -24,16 +25,32 @@ class BoardList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Board.objects.all()
 
-        if self.request.GET.get('filter') == 'public':
-            queryset =  queryset = Board.objects.filter(status='PU')
-        elif  self.request.GET.get('filter') == 'private':
-            queryset =  queryset = Board.objects.filter(status='PR')
+        if self.request.GET.get('status') == 'public':
+            queryset = queryset = Board.objects.filter(status='PU')
+        elif self.request.GET.get('status') == 'private':
+            queryset = queryset = Board.objects.filter(status='PR')
         else:
-           queryset = Board.objects.all()     
+           queryset = Board.objects.all()
         return queryset
-    
-    
-            
+
+class IdeasList(generics.ListAPIView):
+    serializer_class = IdeasSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = Ideas.objects.all()
+
+        if self.request.GET.get('status') == 'public':
+            queryset = queryset = Ideas.objects.filter(status='PU')
+        elif self.request.GET.get('status') == 'private':
+            queryset = queryset = Ideas.objects.filter(status='PR')
+        else:
+           queryset = Ideas.objects.all()
+        return queryset
+
+class CreateIdeas(generics.CreateAPIView):  
+    serializer_class = CreateIdeasSerializer
+    permission_classes = [permissions.AllowAny]          
 
 class AddBoardView(CreateView):
 
