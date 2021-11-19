@@ -1,11 +1,15 @@
 from django.urls import path
-from api.views import AddBoardView, AddIdeaView, BoardList, CreateIdeas, DeleteIdeaView, EditIdeaView, HomeView, BoardsView, BoardDetailView, IdeasList, UserList
+from api.views import AboutView, AddBoardView, AddIdeaView, BoardList, ContactView, CreateIdeas, DeleteIdeaView, EditIdeaView, BoardsView, BoardDetailView, HomeView, IdeasList, ProfileView, ServicesView, UserList
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('profile/', login_required(HomeView.as_view()), name="profile"),
+    path('home/', login_required(HomeView.as_view()), name="home"),
+    path('profile/', login_required(ProfileView.as_view()), name="profile"),
+    path('about/', login_required(AboutView.as_view()), name="about"),
+    path('services/', login_required(ServicesView.as_view()), name="services"),
+    path('contact/', login_required(ContactView.as_view()), name="contact"),
     path('boards/', login_required(BoardsView.as_view()), name="boards"),
     path('boards/<int:pk>/', login_required(BoardDetailView.as_view()), name="boards_id"),
     path('boards/<int:pk>/idea/', login_required(AddIdeaView.as_view()), name="create_idea"),

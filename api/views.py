@@ -247,9 +247,45 @@ class RegistrationView(CreateView):
         return
 
 
+class ProfileView(TemplateView):
+
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
 class HomeView(TemplateView):
 
     template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+class AboutView(TemplateView):
+
+    template_name = 'about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+class ServicesView(TemplateView):
+
+    template_name = 'services.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+class ContactView(TemplateView):
+
+    template_name = 'contact.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
