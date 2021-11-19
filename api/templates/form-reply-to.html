@@ -9,6 +9,9 @@
         </div>
         <div class="col-12">
             <a href="{% url 'all_contacts' %}" class="btn btn-dark">Volver a los contactos</a>
+            <pre>{{contact}}</pre>
+            <hr>
+            <pre>{{replies}}</pre>
         </div>
         <div class="col-12 col-sm-12 col-lg-6 bg-white py-5">
             {% if messages %}
