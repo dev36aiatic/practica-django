@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board, Ideas, User
+from .models import Board, Contact, Ideas, ReplyMessage, User
 
 
 class AddBoard(forms.ModelForm):
@@ -10,6 +10,24 @@ class AddBoard(forms.ModelForm):
         widgets = {
             'owner': forms.HiddenInput(),
         }
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+class AddContact(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ('email', 'subject', 'message')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+class AddReply(forms.ModelForm):
+    class Meta:
+        model = ReplyMessage
+        fields = ('reply', 'contact')
 
     def form_valid(self, form):
         form.save()

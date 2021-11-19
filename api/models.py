@@ -139,3 +139,29 @@ class Ideas(models.Model):
 
     def __str__(self):
         return f"{ self.id } - { self.name } | { self.owner }"
+
+
+class Contact(models.Model):
+
+    email = models.EmailField(verbose_name="Correo electrónico")
+    subject = models.CharField(verbose_name="Asunto" , max_length=255)
+    message = models.TextField(verbose_name="Mensaje")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{ self.id } - { self.email } | { self.subject }"
+
+class ReplyMessage(models.Model):
+
+    reply = models.TextField(verbose_name="Respuesta")
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
+
+    def __str__(self):
+        return f"ID: { self.id } | Contacto: { self.contact }"
+
+
+

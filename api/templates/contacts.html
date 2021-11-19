@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="container text-dark">
+    <div class="row">
+        <div class="col-12 pt-5 mb-5 d-block d-sm-block d-md-flex justify-content-between align-items-center">
+            <h4 class="text-center mb-4 mb-sm-4 mb-md-0">Mensajes</h4>
+            <div>
+                <a class="btn btn-dark d-block d-sm-block d-md-inline-block" href="{% url 'contact' %}">Volver al formulario</a>
+            </div>
+        </div>
+        
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped text-center ">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Responder</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <th scope="row">{{ contact.id }}</th>
+                    <td>{{ contact.subject }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td><a class="text-dark" href="{% url 'reply_to_contact' contact.id %}"><i class="fas fa-reply"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

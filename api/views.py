@@ -1,10 +1,10 @@
 from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from api.forms import AddBoard, AddIdea, RegistrationForm
+from api.forms import AddBoard, AddContact, AddIdea, AddReply, RegistrationForm
 from django.shortcuts import redirect
 from api.serializers import BoardSerializer, CreateIdeasSerializer, IdeasSerializer, UserSerializer
-from .models import Board, Ideas, User
+from .models import Board, Contact, Ideas, ReplyMessage, User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
@@ -33,6 +33,7 @@ class BoardList(generics.ListCreateAPIView):
            queryset = Board.objects.all()
         return queryset
 
+
 class IdeasList(generics.ListAPIView):
     serializer_class = IdeasSerializer
     permission_classes = [permissions.AllowAny]
@@ -48,9 +49,11 @@ class IdeasList(generics.ListAPIView):
            queryset = Ideas.objects.all()
         return queryset
 
-class CreateIdeas(generics.CreateAPIView):  
+
+class CreateIdeas(generics.CreateAPIView):
     serializer_class = CreateIdeasSerializer
-    permission_classes = [permissions.AllowAny]          
+    permission_classes = [permissions.AllowAny]
+
 
 class AddBoardView(CreateView):
 
@@ -256,6 +259,7 @@ class ProfileView(TemplateView):
         context['boards'] = Board.objects.all()
         return context
 
+
 class HomeView(TemplateView):
 
     template_name = 'home.html'
@@ -264,6 +268,7 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['boards'] = Board.objects.all()
         return context
+
 
 class AboutView(TemplateView):
 
@@ -274,6 +279,7 @@ class AboutView(TemplateView):
         context['boards'] = Board.objects.all()
         return context
 
+
 class ServicesView(TemplateView):
 
     template_name = 'services.html'
@@ -283,11 +289,51 @@ class ServicesView(TemplateView):
         context['boards'] = Board.objects.all()
         return context
 
-class ContactView(TemplateView):
 
-    template_name = 'contact.html'
+class AllContactsView(TemplateView):
+
+    template_name = 'contacts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['boards'] = Board.objects.all()
+        context['contacts'] = Contact.objects.all()
         return context
+
+
+class ContactView(CreateView):
+
+    form_class = AddContact
+    template_name = 'form-contact.html'
+    success_url = '/accounts/contact/'
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"El mensaje se ha enviado exitosamente, pronto nos pondremos en contacto contigo!")
+        return super().form_valid(form)
+
+
+class AddReplyView(CreateView):
+
+    model = ReplyMessage
+    form_class = AddReply
+    template_name = 'form-reply-to.html'
+    success_url = reverse_lazy('reply_to_contact')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['replies'] = ReplyMessage.objects.filter(contact=self.kwargs.get('pk'))
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get_initial(self, *args, **kwargs):
+        initial = super().get_initial(*args, **kwargs)
+        initial['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return initial
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"Mensaje enviado!")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('reply_to_contact', kwargs={'pk': self.kwargs.get('pk')})

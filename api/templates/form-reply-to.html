@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" style="height: 100%;">
+    <div class="row justify-content-center pt-5 pt-sm-5 pt-lg-0 p-md-5 mt-lg-4 ">
+        <div class="col-12">
+            <h5 class="text-center">Formulario de respuestaxd</h5>
+        </div>
+        <div class="col-12">
+            <a href="{% url 'all_contacts' %}" class="btn btn-dark">Volver a los contactos</a>
+        </div>
+        <div class="col-12 col-sm-12 col-lg-6 bg-white py-5">
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                <p class="alert text-center alert-success" id="message_container" role="alert">{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST" action="{% url 'reply_to_contact' contact.id  %}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" class="btn btn-primary d-block my-3 w-75 mx-auto" value="Enviar">
+            </form>
+            
+        </div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        let message_ele = document.getElementById("message_container");
+
+        setTimeout(function () {
+            message_ele.style.display = "none";
+        }, 8000);
+    });
+</script>
+
+<style>
+    textarea {
+        min-height: 100px !important;
+        max-height: 100px !important;
+    }
+</style>
+{% endblock %}
