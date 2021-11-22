@@ -340,6 +340,7 @@ class AddReplyView(CreateView):
     def get_success_url(self):
         return reverse('reply_to_contact', kwargs={'pk': self.kwargs.get('pk')})
 
+
 class DeleteContactView(DeleteView):
     model = Contact
     form_class = AddContact
@@ -358,3 +359,30 @@ class DeleteContactView(DeleteView):
         except Http404:
             return redirect(reverse('all_contacts'))
 
+
+class EditContactView(UpdateView):
+    model = Contact
+    form_class = AddContact
+    template_name = 'form-edit-contact.html'
+    success_url = reverse_lazy('edit_contact')
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('all_contacts'))
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"El mensaje ha sido editado exitosamente!")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        #print(self.pk)
+        return reverse('edit_contact', kwargs={'pk': self.kwargs.get('pk')})

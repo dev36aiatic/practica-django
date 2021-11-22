@@ -5,13 +5,13 @@
 <div class="container" style="height: 100%;">
     <div class="row justify-content-center p-5">
         <div class="col-12">
-            <h5 class="text-center text-dark">¿Estás seguro que deseas borrar el contacto <span class="mark">{{ contact.email }}</span>?</h5>
+            <h5 class="text-center text-dark">¿Estás seguro que deseas borrar el mensaje de <span class="mark">{{ contact.email }}</span>?</h5>
         </div>
         <div class="col-6 bg-white">
-           
             <form class="my-4 d-flex alig-items-center justify-content-center" method="POST" action="{% url 'delete_contact' contact.id%}">
                 {% csrf_token %}
                 {{ form | crispy }}
+                <a href="{% url 'all_contacts' %}" class="btn btn-primary">Volver a mensajes</a>
                 <input type="submit" class="btn btn-danger mx-3 w-25 " value="Borrar">
             </form>
         </div>
