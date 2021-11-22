@@ -28,6 +28,10 @@ class AddReply(forms.ModelForm):
     class Meta:
         model = ReplyMessage
         fields = ('reply', 'contact')
+        
+        widgets = {
+            'contact': forms.HiddenInput(),
+        }
 
     def form_valid(self, form):
         form.save()
