@@ -7,10 +7,11 @@
         <div class="col-12 pt-5 mb-5 d-block d-sm-block d-md-flex justify-content-between align-items-center">
             <h4 class="text-center mb-4 mb-sm-4 mb-md-0">Mensajes</h4>
             <div>
-                <a class="btn btn-dark d-block d-sm-block d-md-inline-block" href="{% url 'contact' %}">Volver al formulario</a>
+                <a class="btn btn-dark d-block d-sm-block d-md-inline-block" href="{% url 'contact' %}">Volver al
+                    formulario</a>
             </div>
         </div>
-        
+
     </div>
     <div class="table-responsive">
         <table class="table table-striped text-center ">
@@ -20,6 +21,7 @@
                     <th scope="col">Asunto</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Responder</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +30,12 @@
                     <th scope="row">{{ contact.id }}</th>
                     <td>{{ contact.subject }}</td>
                     <td>{{ contact.email }}</td>
-                    <td><a class="text-dark" href="{% url 'reply_to_contact' contact.id %}"><i class="fas fa-reply"></i></a></td>
+                    <td><a class="text-dark" href="{% url 'reply_to_contact' contact.id %}"><i
+                                class="fas fa-reply"></i></a></td>
+                    <td>
+                        <a class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'delete_contact' contact.id%}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

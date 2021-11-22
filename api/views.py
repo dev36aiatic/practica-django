@@ -318,10 +318,12 @@ class AddReplyView(CreateView):
     form_class = AddReply
     template_name = 'form-reply-to.html'
     success_url = reverse_lazy('reply_to_contact')
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['replies'] = ReplyMessage.objects.filter(contact=self.kwargs.get('pk'))
+        context['replies'] = ReplyMessage.objects.filter(
+            contact=self.kwargs.get('pk'))
         context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
         return context
 
@@ -337,3 +339,22 @@ class AddReplyView(CreateView):
 
     def get_success_url(self):
         return reverse('reply_to_contact', kwargs={'pk': self.kwargs.get('pk')})
+
+class DeleteContactView(DeleteView):
+    model = Contact
+    form_class = AddContact
+    template_name = 'form-delete-contact.html'
+    success_url = reverse_lazy('all_contacts')
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('all_contacts'))
+
