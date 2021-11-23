@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views import AboutView, AddBoardView, AddIdeaView, AddReplyView, AllContactsView, BoardList, ContactView, CreateIdeas, DeleteContactView, DeleteIdeaView, EditContactView, EditIdeaView, BoardsView, BoardDetailView, HomeView, IdeasList, ProfileView, ServicesView, UserList
+from api.views import AboutView, AddBoardView, AddIdeaView, AddReplyView, AllContactsView, BoardList, ContactView, CreateIdeas, CreateUser, DeleteContactView, DeleteIdeaView, DeleteSingleUserView, EditContactView, EditIdeaView, BoardsView, BoardDetailView, HomeView, IdeasList, ProfileView, ServicesView, SingleUserView, UserList
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,5 +23,9 @@ urlpatterns = [
     path('users/', UserList.as_view(), name="users"),
     path('boards_api/', BoardList.as_view(), name="boards_api"),
     path('ideas/', IdeasList.as_view(), name="ideas"),
-    path('create_idea/', CreateIdeas.as_view(), name="create_ideas")
+    path('create_idea/', CreateIdeas.as_view(), name="create_ideas"),
+    path('create/', CreateUser.as_view(), name="create"),
+    path('list/', UserList.as_view(), name="users_list"),
+    path('user/<int:pk>/', SingleUserView.as_view(), name="single_user"),
+    path('delete/<int:pk>/', DeleteSingleUserView.as_view(), name="delete_single_user"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

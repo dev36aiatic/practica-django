@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from api.forms import AddBoard, AddContact, AddIdea, AddReply, RegistrationForm
 from django.shortcuts import redirect
-from api.serializers import BoardSerializer, CreateIdeasSerializer, IdeasSerializer, UserSerializer
+from api.serializers import BoardSerializer, CreateIdeasSerializer, CreateUserSerializer, IdeasSerializer, UserSerializer
 from .models import Board, Contact, Ideas, ReplyMessage, User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
@@ -52,6 +52,20 @@ class IdeasList(generics.ListAPIView):
 
 class CreateIdeas(generics.CreateAPIView):
     serializer_class = CreateIdeasSerializer
+    permission_classes = [permissions.AllowAny]
+
+class CreateUser(generics.CreateAPIView):
+    serializer_class = CreateUserSerializer
+    permission_classes = [permissions.AllowAny]
+
+class SingleUserView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+
+class DeleteSingleUserView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
 
