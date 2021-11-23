@@ -230,7 +230,7 @@ class BoardDetailView(DetailView):
 
         return context
 
-
+""" Intentar usar formview """
 class RegistrationView(CreateView):
 
     template_name = '../templates/account/signup.html'
@@ -299,6 +299,11 @@ class AllContactsView(TemplateView):
         context['contacts'] = Contact.objects.all()
         return context
 
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)  
+        bar = self.request.POST.get('email', None)  
+        context['contacts'] = 'new_variable' + ' updated'
+        return self.render_to_response(context)
 
 class ContactView(CreateView):
 
