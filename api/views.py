@@ -1,14 +1,58 @@
-from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from api.forms import AddBoard, AddIdea, RegistrationForm
-from django.shortcuts import redirect, render
-from .models import Board, Ideas
+from api.forms import AddBoard, AddContact, AddIdea, AddReply, RegistrationForm
+from django.shortcuts import redirect
+from api.serializers import BoardSerializer, CreateIdeasSerializer, IdeasSerializer, UserSerializer
+from .models import Board, Contact, Ideas, ReplyMessage, User
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
+from rest_framework import generics, permissions
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class BoardList(generics.ListCreateAPIView):
+    serializer_class = BoardSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = Board.objects.all()
+
+        if self.request.GET.get('status') == 'public':
+            queryset = queryset = Board.objects.filter(status='PU')
+        elif self.request.GET.get('status') == 'private':
+            queryset = queryset = Board.objects.filter(status='PR')
+        else:
+           queryset = Board.objects.all()
+        return queryset
+
+
+class IdeasList(generics.ListAPIView):
+    serializer_class = IdeasSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = Ideas.objects.all()
+
+        if self.request.GET.get('status') == 'public':
+            queryset = queryset = Ideas.objects.filter(status='PU')
+        elif self.request.GET.get('status') == 'private':
+            queryset = queryset = Ideas.objects.filter(status='PR')
+        else:
+           queryset = Ideas.objects.all()
+        return queryset
+
+
+class CreateIdeas(generics.CreateAPIView):
+    serializer_class = CreateIdeasSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 class AddBoardView(CreateView):
@@ -186,7 +230,7 @@ class BoardDetailView(DetailView):
 
         return context
 
-
+""" Intentar usar formview """
 class RegistrationView(CreateView):
 
     template_name = '../templates/account/signup.html'
@@ -206,6 +250,16 @@ class RegistrationView(CreateView):
         return
 
 
+class ProfileView(TemplateView):
+
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+
 class HomeView(TemplateView):
 
     template_name = 'home.html'
@@ -214,3 +268,126 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['boards'] = Board.objects.all()
         return context
+
+
+class AboutView(TemplateView):
+
+    template_name = 'about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+
+class ServicesView(TemplateView):
+
+    template_name = 'services.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = Board.objects.all()
+        return context
+
+
+class AllContactsView(TemplateView):
+
+    template_name = 'contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = Contact.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)  
+        bar = self.request.POST.get('email', None)  
+        context['contacts'] = 'new_variable' + ' updated'
+        return self.render_to_response(context)
+
+class ContactView(CreateView):
+
+    form_class = AddContact
+    template_name = 'form-contact.html'
+    success_url = '/accounts/contact/'
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"El mensaje se ha enviado exitosamente, pronto nos pondremos en contacto contigo!")
+        return super().form_valid(form)
+
+
+class AddReplyView(CreateView):
+
+    model = ReplyMessage
+    form_class = AddReply
+    template_name = 'form-reply-to.html'
+    success_url = reverse_lazy('reply_to_contact')
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['replies'] = ReplyMessage.objects.filter(
+            contact=self.kwargs.get('pk'))
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get_initial(self, *args, **kwargs):
+        initial = super().get_initial(*args, **kwargs)
+        initial['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return initial
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"Mensaje enviado!")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('reply_to_contact', kwargs={'pk': self.kwargs.get('pk')})
+
+
+class DeleteContactView(DeleteView):
+    model = Contact
+    form_class = AddContact
+    template_name = 'form-delete-contact.html'
+    success_url = reverse_lazy('all_contacts')
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('all_contacts'))
+
+
+class EditContactView(UpdateView):
+    model = Contact
+    form_class = AddContact
+    template_name = 'form-edit-contact.html'
+    success_url = reverse_lazy('edit_contact')
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contact'] = Contact.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('all_contacts'))
+
+    def form_valid(self, form):
+        messages.success(
+            self.request, f"El mensaje ha sido editado exitosamente!")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        #print(self.pk)
+        return reverse('edit_contact', kwargs={'pk': self.kwargs.get('pk')})

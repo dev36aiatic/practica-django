@@ -8,26 +8,36 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-home "></i><span class="mx-2">Inicio</span><span
-            class="sr-only">(Actual)</span></a>
+        <a class="nav-link" href="{% url 'home' %}">
+          <i class="fas fa-home "></i>
+          <span class="mx-2">Inicio</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'boards' %}"><i class="fas fa-chalkboard"></i><span
             class="mx-2">Tableros</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'account_email' %}"><i class="fas fa-envelope"></i><span class="mx-2">Cambiar
-            correo electrónico</span></a>
+        <a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-phone"></i></i><span
+            class="mx-2">Contáctanos</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="{% url 'profile' %}">
+          <i class="fas fa-user-alt"></i>
+          <span class="mx-2">Perfil</span>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'socialaccount_connections' %}"><i class="fas fa-users"></i><span
-            class="mx-2">Vincular cuenta con redes sociales</span></a>
+        <a class="nav-link" href="{% url 'about' %}"><i class="far fa-address-card"></i><span
+            class="mx-2">Nosotros</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'services' %}"><i class="fas fa-taxi"></i><span
+            class="mx-2">Servicios</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i><span
             class="mx-2">Cerrar sesión</span></a>
       </li>
     </ul>
-
   </div>
 </nav>

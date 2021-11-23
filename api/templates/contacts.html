@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="container text-dark">
+    <div class="row">
+        <div class="col-12 pt-5 mb-5 d-block d-sm-block d-md-flex justify-content-between align-items-center">
+            <h4 class="text-center mb-4 mb-sm-4 mb-md-0">Mensajes</h4>
+            <div>
+                <a class="btn btn-dark d-block d-sm-block d-md-inline-block" href="{% url 'contact' %}">Volver al
+                    formulario</a>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label class="text-muted">Campo de búsqueda</label>
+                    <input id="input-search" placeholder="¿Qué estás buscando?" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group col-12 col-md-3">
+                <label class="text-muted">Filtrando por</label>
+                <select class="form-select" id="select-filter">
+                    <option value="tb-id">Identificador</option>
+                    <option value="tb-subject">Asunto</option>
+                    <option value="tb-email">Correo</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped text-center ">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Responder</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr class="tb-row-container">
+                    <th class="tb-id" scope="row">{{ contact.id }}</th>
+                    <td class="tb-subject">{{ contact.subject }}</td>
+                    <td class="tb-email">{{ contact.email }}</td>
+                    <td><a class="text-dark" href="{% url 'reply_to_contact' contact.id %}"><i
+                                class="fas fa-reply"></i></a></td>
+                    <td>
+                        <a href="{% url 'edit_contact' contact.id %}" class="btn btn-sm btn-primary"><i
+                                class="fas fa-edit"></i></a>
+                        <a href="{% url 'delete_contact' contact.id %}" class="btn btn-sm btn-danger"><i
+                                class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let filterBy = 'tb-id';
+    let filterFields = document.querySelectorAll(`.${filterBy}`);
+    const inputSearch = document.getElementById('input-search');
+    const tableRowContainer = document.querySelectorAll('.tb-row-container');
+    const selectFilter = document.getElementById('select-filter');
+
+    selectFilter.addEventListener('input', (e) => {
+        filterBy = e.target.value;
+    });
+
+    inputSearch.addEventListener('input', (e) => {
+        if (e.target.value == '') {
+            tableRowContainer.forEach(element => {
+                element.classList.remove('d-none');
+            })
+        }
+
+        filterFields = document.querySelectorAll(`.${filterBy}`);
+        filterFields.forEach(element => {
+            if (element.innerHTML.trim().toLowerCase().indexOf(e.target.value.trim().toLowerCase()) == -
+                1) {
+                element.parentElement.classList.add('d-none');
+            } else {
+                element.parentElement.classList.remove('d-none');
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
