@@ -1,0 +1,11 @@
+site_name: Documentación Proyecto Django | Practicas 2021-2 UNAB
+theme: readthedocs
+nav: 
+    - 'CONTENIDO:':
+      - Introducción: 'index.md'
+      - Allauth: 'allauth.md'
+      - 'Ejercicios':
+        - 'Introducción': 'ejercicios.md'
+        - 'Desarrollo ejercicio 1': 'ejercicio-1.md'
+        - 'Desarrollo ejercicio 2': 'ejercicio-2.md'
+        - 'Desarrollo ejercicio 3': 'ejercicio-3.md'
