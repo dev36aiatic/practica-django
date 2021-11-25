@@ -42,7 +42,7 @@ Para la base de datos se estableció que debía ser PostgreSQL, a continuación 
         }
     }
 
-``'default'`` es la que utilizará el proyecto por defecto.
+``'default'`` es la que utilizará el proyecto por defecto. Una vez realizada la configuración eso es todo.
 
 Para obtener el token de acceso se utilizó la siguiente funcionalidad que incluye ``rest_framework``
 
