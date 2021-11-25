@@ -23,6 +23,7 @@ en ReadTheDocs. En este proyecto se utilizó Django Allauth para el manejo de se
 
 * [Allauth](allauth.md)
 * [Ejercicios](ejercicios.md)
+      * [Introducción](ejercicios.md)
       * [Desarrollo ejercicio 1](ejercicio-1.md)
       * [Desarrollo ejercicio 2](ejercicio-2.md)
       * [Desarrollo ejercicio 3](ejercicio-3.md)

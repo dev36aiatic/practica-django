@@ -39,6 +39,17 @@ Dado una petición `POST` donde se envía un `username` y `password` devuelve un
 
 Este ejercicio consistia en permitir que la aplicación permitiera al usuario  iniciar sesión con una cuenta local o una cuenta de redes sociales, asi como registrarse subiendo una foto de perfil tambien que permita a cualquier persona gestionar un tablero en donde se pueden agregar múltiples ideas (notas) las cuales pueden ser públicas o privadas.
 
+Adicionalmente se necesitaban los siguientes endpoints utilizando Django REST framework
+
+| Método http | Endpoint     | Descripción                                                                                    |
+|-------------|--------------|------------------------------------------------------------------------------------------------|
+| Post        | /token       | Método que permite obtener un token de autenticación mediante username y password.             |
+| Get         | /users       | Método que retorna el listado de todos los usuarios con sus diferentes atributos.              |
+| Get         | /boards      | Método que retorna todos los tableros creados, permitir filtrar por estrado (privado, público) |
+| Post        | /boards      | Método que permite crear un tablero por nombre y estado.                                       |
+| Get         | /ideas       | Método que retorna todos las ideas creadas por usuario                                         |
+| Post        | /create_idea | Método que permite crear una idea por nombre y estado.                                         |
+
 Para las funcionalidades de iniciar sesión de forma local o con redes sociales se utilizó Django allauth, no se implementó cambios en el código que proveé este mismo, por lo que los únicos cambios que se realizaron fueron de diseño utilizando Bootstrap.
 
 Para ver todo lo relacionado al desarrollo del ejercicio 1 (modelos, formularios, vistas, etc.) para administrar los tableros e ideas ir a [***Desarrollo ejercicio 1***](ejercicio-1.md)
