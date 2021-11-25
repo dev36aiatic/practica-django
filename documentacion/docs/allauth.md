@@ -11,7 +11,7 @@ Django-allauth es un paquete de instalación de Django de terceros, sirve para a
 Para mas información sobre el uso de django allauth no hay nada mejor que la documentación oficial. Puedes verla haciendo [***click aquí***](https://django-allauth.readthedocs.io/en/latest/overview.html)
 
 
-En esta aplicación se utilizó como base las vistas que provee django-allauth después de su intalación para al manejo de sesiones, se realizaron modificaciones a las mismas, asi mismo se agregaron nuevas vistas para el desarrollo de los ejercicios. Se intregó además de la autenticación local la autenticación con [Facebook](https://django-allauth.readthedocs.io/en/latest/providers.html#facebook), [Google](https://django-allauth.readthedocs.io/en/latest/providers.html#google) y [Github](https://django-allauth.readthedocs.io/en/latest/providers.html#github). Para realizar esto se siguieron los pasos de la documentación oficial, enlace que fue definido anteriormente.
+En esta aplicación se utilizó como base las vistas que provee django-allauth después de su intalación. Para el manejo de sesiones, se realizaron modificaciones a las mismas, asi mismo se agregaron nuevas vistas para el desarrollo de los ejercicios. Se intregó, además de la autenticación local, la autenticación con [Facebook](https://django-allauth.readthedocs.io/en/latest/providers.html#facebook), [Google](https://django-allauth.readthedocs.io/en/latest/providers.html#google) y [Github](https://django-allauth.readthedocs.io/en/latest/providers.html#github). Para realizar esto se siguieron los pasos de la documentación oficial, enlace que fue definido anteriormente.
 
 ## Settings.py
 

@@ -25,6 +25,25 @@ Para la creación de la API REST se utilizó [Django REST framework](https://www
 * **RetrieveAPIView**: sirve para obtener información sobre un objeto de una colección específica
 * **DestroyAPIView**: sirve para borrar un objeto de una colección específica
 
+Para la base de datos se estableció que debía ser PostgreSQL, a continuación se muestra la configuración pertinente en el archivo ``settings.py``
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'xxxxxxxxxxxxxxxxx',
+            'USER': 'xxxxxxxxxxxxxxxxx',
+            'PASSWORD': 'xxxxxxxxxxxxxxxxx',
+            'HOST': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'PORT': '5432',
+        },
+        'dev': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+``'default'`` es la que utilizará el proyecto por defecto.
+
 Para obtener el token de acceso se utilizó la siguiente funcionalidad que incluye ``rest_framework``
 
 ```Python
