@@ -1,5 +1,7 @@
 site_name: Documentación Proyecto Django | Practicas 2021-2 UNAB
+
 theme: readthedocs
+
 nav: 
     - 'CONTENIDO:':
       - Introducción: 'index.md'
