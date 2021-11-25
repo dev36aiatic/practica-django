@@ -496,6 +496,17 @@ Se necesitaba crear los siguientes endpoints
 | Get         | /ideas       | Método que retorna todos las ideas creadas por usuario                                         |
 | Post        | /create_idea | Método que permite crear una idea por nombre y estado.                                         |
 
+
+Para obtener el token de usuario se definió la siguiente ruta en el archivo ``urls.py`` en el core de la aplicación
+
+     path('token/', obtain_auth_token),
+
+al hacer una petición POST y enviarle por el cuerpo un objeto JSON con propiedades username y password retorna un token de acceso como se observa a continuación
+
+![token](./img/token.png)
+
+vale la pena recalcar que se hace la petición a la ruta establecida en la app, en la imagen sale auth/ sin embargo en el proyecto se utiliza token/
+
 Archivo ``urls.py``
 
 En este archivo se definen las rutas de la aplicación, aquí se define qué ruta utilizará qué endpoint, se hace el enlace.
@@ -580,3 +591,5 @@ Se definen la funcionalidades de la API REST
     class CreateIdeas(generics.CreateAPIView):
         serializer_class = CreateIdeasSerializer
         permission_classes = [permissions.AllowAny]
+
+Y eso es todo, los endpoints han sido creados, al hacer una petición POST o GET según corresponda se enviará la respuesta correspondiente.

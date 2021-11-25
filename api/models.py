@@ -92,11 +92,11 @@ class User(AbstractBaseUser):
         return self.email
 
     def get_full_name(self):
-        # The user is identified by their email address
+        # El usuario es identificado por su nombre
         return self.first_name
 
     def get_short_name(self):
-        # The user is identified by their email address
+        # EL usuario es identificado por su apodo
         return self.username
 
     @staticmethod
